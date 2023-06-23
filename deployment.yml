@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: mynode-app
-        image: amritpoudel/node-app:replaceImageTag
+        image: amritpoudel/mynodejs-app
         resources:
           limits:
             memory: "128Mi"
