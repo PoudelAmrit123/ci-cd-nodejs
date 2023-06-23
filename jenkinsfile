@@ -23,14 +23,14 @@ pipeline{
 
     stage('Run the container'){
       steps{
-        sh "docker run -p 8000:8000 -d --name my-nodejs-appc-container mynodejs-app"
+        sh "docker run -p 8000:8000 -d --name my-nodejs-appd-container mynodejs-app"
       }
     }
 
    stage("Push to Docker Hub"){
             steps{
                 withCredentials([usernamePassword(credentialsId:"docker-cred",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
-                sh "docker tag mynode-app:${BUILD_NUMBER} ${env.dockerHubUser}/mynodejs-app"
+                sh "docker tag mynode-app ${env.dockerHubUser}/mynodejs-app"
                 sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
                 sh "docker push ${env.dockerHubUser}/mynodejs-app"
                 }
