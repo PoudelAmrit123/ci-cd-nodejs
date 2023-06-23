@@ -23,7 +23,7 @@ pipeline{
 
     stage('Run the container'){
       steps{
-        sh "docker run -p 8000:8000 -d --name mynode-app-container:${BUILD_NUMBER} mynode-app:${BUILD_NUMBER}"
+        sh "docker run -p 8000:8000 -d --name mynode-app-container${BUILD_NUMBER} mynode-app:${BUILD_NUMBER}"
       }
     }
 
