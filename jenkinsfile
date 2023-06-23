@@ -17,22 +17,22 @@ pipeline{
  stage('Build in  Docker'){
 
        steps{
-        sh "docker build -t mynode-app ."
+        sh "docker build -t mynode-app:${BUILD_NUMBER} ."
        }
     }
 
     stage('Run the container'){
       steps{
-        sh "docker run -p 8000:8000 -d --name mynode-app-container mynode-app"
+        sh "docker run -p 8000:8000 -d --name mynode-app-container:${BUILD_NUMBER} mynode-app:${BUILD_NUMBER}"
       }
     }
 
    stage("Push to Docker Hub"){
             steps{
                 withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
-                sh "docker tag mynode-app ${env.dockerHubUser}/mynode-app"
+                sh "docker tag mynode-app:${BUILD_NUMBER} ${env.dockerHubUser}/mynode-app:${BUILD_NUMBER}"
                 sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
-                sh "docker push ${env.dockerHubUser}/mynode-app"
+                sh "docker push ${env.dockerHubUser}/mynode-app:${BUILD_NUMBER}"
                 }
             }
         }
