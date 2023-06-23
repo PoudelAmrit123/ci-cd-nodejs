@@ -29,7 +29,7 @@ pipeline{
 
    stage("Push to Docker Hub"){
             steps{
-                withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
+                withCredentials([usernamePassword(credentialsId:"docker-cred",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
                 sh "docker tag mynode-app:${BUILD_NUMBER} ${env.dockerHubUser}/mynodejs-app"
                 sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
                 sh "docker push ${env.dockerHubUser}/mynodejs-app"
