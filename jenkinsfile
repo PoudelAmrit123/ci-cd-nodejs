@@ -17,13 +17,13 @@ pipeline{
  stage('Build in  Docker'){
 
        steps{
-        sh " docker build -t mynode-app . "
+        sh "docker build -t mynode-app ."
        }
     }
 
     stage('Run the container'){
       steps{
-        sh " docker run -p 8000:8000 -d --name mynode-app-container mynode-app"
+        sh "docker run -p 8000:8000 -d --name mynode-app-container mynode-app"
       }
     }
 
